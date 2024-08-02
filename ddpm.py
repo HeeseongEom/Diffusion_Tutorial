@@ -19,6 +19,8 @@ logging.basicConfig(format="%(asctime)s - %(levelname)s: %(message)s", level=log
 ## x가 인풋되면 여기에 sample_timestep으로 뽑힌 n개의 에러 noising을 x에 진행하고 --> 여기서 다시 x로 복원하는 과정을 학습
 ## 
 
+## 수정해봄##
+
 class Diffusion:
 
     def __init__(self, noise_steps=1000, beta_start=1e-4, beta_end=0.02, img_size=64, device="cuda"):
