@@ -113,7 +113,8 @@ def train(args):
             #이후 이 noisy 이미지를 model에 넣어서 noise를 예측함
             predicted_noise = model(x_t, t)
             loss = mse(noise, predicted_noise)
-
+            #질문: 왜 mse로 noise와 유사하게 만들면 자동으로 x가 학습되는지? --> 수학적공부필요
+            
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
@@ -121,6 +122,7 @@ def train(args):
             pbar.set_postfix(MSE=loss.item())
             logger.add_scalar("MSE", loss.item(), global_step=epoch*l + i)
         
+        #이과정은 단순 추론이라고보면됨
         sampled_images = diffusion.sample(model, n=images.shape[0])
         save_images(sampled_images, os.path.join("results", args.run_name, f"{epoch}.jpg"))
         torch.save(model.state_dict(), os.path.join("models", args.run_name, f"ckpt.pt"))
